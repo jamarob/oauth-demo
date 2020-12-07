@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components/macro";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Navigation() {
+  const { user } = useContext(AuthContext);
+
   return (
     <Nav>
       <NavLink to="/home">Home</NavLink>
       <NavLink to="/profile">Profile</NavLink>
-      <NavLink to="/login">Login</NavLink>
+      {user ? (
+        <NavLink to="/logout">Logout</NavLink>
+      ) : (
+        <NavLink to="/login">Login</NavLink>
+      )}
     </Nav>
   );
 }

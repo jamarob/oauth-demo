@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components/macro";
 import Page from "../common/Page";
 
+const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+const url = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
+
 export default function Login() {
   return (
     <Page>
-      <LoginWithGitHub href="https://github.com">
-        Login with GitHub
-      </LoginWithGitHub>
+      <LoginWithGitHub href={url}>Login with GitHub</LoginWithGitHub>
     </Page>
   );
 }
