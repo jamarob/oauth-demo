@@ -21,7 +21,7 @@ export function AuthContextProvider({ children }) {
       .then((res) => res.data.access_token)
       .then((token) => {
         setToken(token);
-        return axios.get("https://api.github.com/user", {
+        return axios.get("/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

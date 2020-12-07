@@ -7,8 +7,11 @@ export default function Profile() {
 
   return (
     <Page>
-      <h2>{user.login}</h2>
-      <img src={`https://github.com/${user.login}.png`} alt={user.login} />
+      <h2>{user.name}</h2>
+      <img src={user.avatarUrl} alt={user.name} />
+      <p>
+        {user.name}s favorite animals are {user.favoriteAnimal}.
+      </p>
     </Page>
   );
 }
