@@ -1,10 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 
-require("dotenv").config();
-const port = process.env.PORT || 3001;
-const client_id = process.env.GITHUB_CLIENT_ID;
-const client_secret = process.env.GITHUB_CLIENT_SECRET;
+const { PORT, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 const app = express();
 
@@ -20,7 +18,11 @@ app.post("/login/oauth/github/token", (req, res, next) => {
   axios
     .post(
       "https://github.com/login/oauth/access_token",
-      { code, client_id, client_secret },
+      {
+        code,
+        client_id: GITHUB_CLIENT_ID,
+        client_secret: GITHUB_CLIENT_SECRET,
+      },
       {
         headers: {
           Accept: "application/json",
@@ -29,7 +31,10 @@ app.post("/login/oauth/github/token", (req, res, next) => {
     )
     .then((axiosResponse) => {
       if (axiosResponse.error) {
-        return res.status(401).send(axiosResponse.error.message);
+        if (axios.error === "bad_verification_code") {
+          return res.status(401).json(axiosResponse.error);
+        }
+        return next(new Error(axios.error));
       }
 
       res.json(axiosResponse.data);
@@ -37,6 +42,6 @@ app.post("/login/oauth/github/token", (req, res, next) => {
     .catch(next);
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
 });

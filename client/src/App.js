@@ -6,7 +6,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { AuthContextProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -16,7 +16,7 @@ import Logout from "./pages/Logout";
 
 export default function App() {
   return (
-    <AuthContextProvider>
+    <AuthProvider>
       <Router>
         <GlobalStyle />
         <Switch>
@@ -28,6 +28,6 @@ export default function App() {
           <Route path="/" render={() => <Redirect to="/home" />} />
         </Switch>
       </Router>
-    </AuthContextProvider>
+    </AuthProvider>
   );
 }

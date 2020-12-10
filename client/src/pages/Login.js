@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/macro";
 import Page from "../common/Page";
 
-const clientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
-const url = `https://github.com/login/oauth/authorize?client_id=${clientId}`;
+const GITHUB_CLIENT_ID = process.env.REACT_APP_GITHUB_CLIENT_ID;
+const url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}`;
 
 export default function Login() {
   return (
