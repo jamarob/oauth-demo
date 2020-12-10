@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, Redirect } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import Page from "../common/Page";
 
 export default function GitHubRedirect() {
-  const { loginWithCode, user } = useContext(AuthContext);
+  const { loginWithCode, user } = useAuth();
   const search = new URLSearchParams(useLocation().search);
   const code = search.get("code");
 

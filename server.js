@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const jwtAuthFilter = require("./middleware/jwtAuthFilter");
 const {
@@ -7,11 +8,12 @@ const {
 const { createJwt } = require("./services/jwtUtils");
 const { findUserByUsername } = require("./services/userService");
 
-require("dotenv").config();
-const port = process.env.PORT || 3001;
-const client_id = process.env.GITHUB_CLIENT_ID;
-const client_secret = process.env.GITHUB_CLIENT_SECRET;
-const jwt_secret_key = process.env.JWT_SECRET_KEY;
+const {
+  PORT,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  JWT_SECRET_KEY,
+} = process.env;
 
 const app = express();
 
@@ -24,7 +26,7 @@ app.post("/login/oauth/github/token", (req, res, next) => {
     return res.status(400).send("no code");
   }
 
-  exchangeCodeForToken(code, client_id, client_secret)
+  exchangeCodeForToken(code, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
     .then((ghResponse) => {
       if (ghResponse.error) {
         return res.status(401).send(ghResponse.error.message);
@@ -39,21 +41,19 @@ app.post("/login/oauth/github/token", (req, res, next) => {
         return res.status(401).send("not registered");
       }
 
-      const token = createJwt(user.username, jwt_secret_key);
+      const token = createJwt(user.username, JWT_SECRET_KEY);
 
       res.json({ access_token: token });
     })
     .catch(next);
 });
 
-app.use(jwtAuthFilter(jwt_secret_key));
+const authMiddleware = jwtAuthFilter(JWT_SECRET_KEY);
 
-// protected routes
-
-app.get("/api/profile", (req, res) => {
+app.get("/api/profile", authMiddleware, (req, res) => {
   res.json(res.locals.user);
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
 });

@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Page from "../common/Page";
-import { AuthContext } from "../contexts/AuthContext";
+import { useUser } from "../contexts/AuthContext";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
+  const user = useUser();
 
   return (
     <Page>
