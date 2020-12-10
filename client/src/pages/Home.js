@@ -18,6 +18,13 @@ export default function Home() {
         >
           The OAuth 2.0 Authorization Framework
         </a>
+        <a
+          href="https://tools.ietf.org/html/rfc7519"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          JSON Web Token (JWT)
+        </a>
       </ReadingList>
 
       <h3>GitHub</h3>
@@ -35,6 +42,24 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Webflow for OAuth Apps
+        </a>
+      </ReadingList>
+
+      <h3>JWT.io</h3>
+      <ReadingList>
+        <a
+          href="https://jwt.io/introduction/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Introduction to JSON Web Tokens
+        </a>
+        <a
+          href="https://jwt.io/#debugger-io"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Debugger
         </a>
       </ReadingList>
     </Page>
