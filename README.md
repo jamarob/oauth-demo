@@ -7,6 +7,6 @@ A small demo of oauth with GitHub and pseudo-authentication with JWTs.
 ## Getting started
 
 - Clone this repo
-- `cd` into the project directory and run `npm intall`
+- `cd` into the project directory and run `npm install`
 - start server and client in development mode with `npm run dev`
 - Checkout the `github-oauth` and `jwt` branches. Happy hacking!
